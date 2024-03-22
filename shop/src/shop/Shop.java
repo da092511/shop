@@ -127,6 +127,15 @@ public class Shop {
 		System.out.println("로그인 성공");
 	}
 	
+	private void logout() {
+		log = -1;
+		System.out.println("로그아웃 성공");
+	}
+	
+	private void shop() {
+		
+	}
+	
 	private void runUserMenu(int option) {
 		if(option == USER_JOIN && log == -1) {
 			join();
@@ -138,10 +147,10 @@ public class Shop {
 			login();
 		}
 		else if(option == USER_LOGOUT && log != -1) {
-			
+			logout();
 		}
 		else if(option == USER_SHOP) {
-			
+			shop();
 		}
 		else if(option == USER_MYPAGE) {
 			
@@ -205,8 +214,12 @@ public class Shop {
 	private void runMenu(int option) {
 		switch(option) {
 			case(USER):
-				showUserMenu();
-				runUserMenu(inputNumber(""));
+				while(true) {
+					showUserMenu();
+					runUserMenu(inputNumber(""));
+					if(log == -1)
+						break;
+				}
 				break;
 			case(MANAGER):
 				if(log != -1 || inputNumber("Manager Code") != managerCode)
