@@ -39,7 +39,7 @@ public class User {
 	
 	@Override
 	public String toString() {
-		String info = String.format("%s님(%s)\n", this.name, this.id);
+		String info = String.format("%s님(%s,%s)\n", this.name, this.id,this.pw);
 		info += this.cart;
 		
 		return info;
