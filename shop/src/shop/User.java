@@ -29,12 +29,40 @@ public class User {
 		this.pw = pw;
 	}
 	
-	public void addCart(Item item) {
+	public int getCartSize() {
+		return cart.getCartSize();
+	}
+	
+	public void addItem(Item item) {
 		cart.addItem(item);
 	}
 	
-	public void delectItem(int itemCode, int count) {
-		cart.delectItem(itemCode, count);
+	public Item getItemData(int itemIndex) {
+		return cart.getItem(itemIndex);
+	}
+	
+	public void updateItemAmount(int itemIndex, int addItemAmount) {
+		cart.updateItemAmount(itemIndex, addItemAmount);
+	}
+	
+	public void removeItem(int itemCode) {
+		cart.removeItem(itemCode);
+	}
+	
+	public int checkItem(int itemCode) {
+		return cart.checkItemByItemCode(itemCode);
+	}
+	
+	public String save() {
+		String info = this.name +"/"+ this.id+"/"+this.pw+"/";
+		
+		if(cart.getCartSize() > 0) {
+			info += cart.save();
+		}
+		
+		info = info.substring(0,info.length()-1);
+		
+		return info;
 	}
 	
 	@Override

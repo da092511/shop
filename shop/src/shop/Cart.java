@@ -13,22 +13,50 @@ public class Cart {
 		cart.add(item);
 	}
 	
-	public void delectItem(int itemCode, int count) {
-		for(Item item : cart) {
-			if(count <= 0)
-				break;
-			
+	public void removeItem(int itemCode) {
+		for(int i=0;i<cart.size();i++) {
+			Item item = cart.get(i);
 			int code = item.getCode();
 			
 			if(code == itemCode) {
 				cart.remove(item);
-				count --;
 			}
 		}
 	}
 	
-	public String getCartData() {
+	public int checkItemByItemCode(int itemCode) {
+		int index = -1;
+		
+		for(int i=0; i<cart.size();i++) {
+			Item item = cart.get(i);
+			if(item.getCode() == itemCode)
+				index = i;
+		}
+		
+		return index;
+	}
+	
+	public Item getItem(int itemIndex) {
+		return cart.get(itemIndex);
+	}
+	
+	public void updateItemAmount(int itemIndex, int addItemAmount) {
+		Item item = cart.get(itemIndex);
+		item.updateItemAmount(addItemAmount);
+	}
+	
+	public int getCartSize() {
+		return cart.size();
+	}
+	
+	public String save() {
+		// file save
 		String info = "";
+		for(Item item : cart)
+			info+= item.save() + "/" ;
+		
+		info = info.substring(0,info.length()-1);
+		
 		
 		return info;
 	}
@@ -36,8 +64,10 @@ public class Cart {
 	@Override
 	public String toString() {
 		String info ="";
+		int number = 1;
 		for(Item item : cart) {
-			info += item +"\n";
+			info += number+ ". " + item +"\n";
+			number++;
 		}
 		
 		return info;

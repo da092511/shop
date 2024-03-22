@@ -52,8 +52,71 @@ public class UserManager {
 		return index;
 	}
 	
+	public Item getItem(int index, int itemIndex) {
+		User user = list.get(index);
+		Item item = user.getItemData(itemIndex);
+		
+		return item;
+	}
+	
+	public void addItem(int userIndex, Item item) {
+		User user = list.get(userIndex);
+		user.addItem(item);
+	}
+
+	public void removeItem(int itemCode) {
+		for(User user : list) {
+			user.removeItem(itemCode);
+		}
+	}
+	
+	public void removeItem(int userIndex,int itemCode) {
+		User user = list.get(userIndex);
+		user.removeItem(itemCode);
+	}
+	
+	public void updateItemAmount(int userIndex, int itemIndex, int addItemAmount) {
+		User user = list.get(userIndex);
+		user.updateItemAmount(itemIndex, addItemAmount);
+	}
+	
+	public int checkItemByItemCode(int index, int itemCode) {
+		User user = list.get(index);
+		
+		return user.checkItem(itemCode);
+	}
+	
 	public int getSize() {
 		return this.list.size();
+	}
+	
+	public int getCartSize(int userIndex) {
+		User user = list.get(userIndex);
+		int size = user.getCartSize();
+		return size;
+	}
+	
+	public void showUser(int index) {
+		System.out.print(list.get(index));
+	}
+	
+	public void showUser(String id) {
+		int index = searchUserById(id);
+		
+		System.out.print(list.get(index));
+	}
+	
+	public String save() {
+		String info = "";
+		
+		for(User user : list) {
+			info += user.save() + "\n";
+		}
+		
+		//줄바꿈 빼기
+		info = info.substring(0,info.length()-2);
+		
+		return info;
 	}
 	
 	@Override
