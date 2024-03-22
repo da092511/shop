@@ -26,6 +26,18 @@ public class UserManager {
 		list.remove(user);
 	}
 	
+	public String getPw(int index) {
+		User user = list.get(index);
+		
+		return user.getPw();
+	}
+	
+	public String getId(int index) {
+		User user = list.get(index);
+		
+		return user.getId();
+	}
+	
 	public int searchUserById(String id) {
 		int index = -1;
 		
@@ -42,5 +54,15 @@ public class UserManager {
 	
 	public int getSize() {
 		return this.list.size();
+	}
+	
+	@Override
+	public String toString() {
+		String info = "";
+		
+		for(User user : list)
+			info += user;
+		
+		return info;
 	}
 }

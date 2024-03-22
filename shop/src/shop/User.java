@@ -37,4 +37,12 @@ public class User {
 		cart.delectItem(itemCode, count);
 	}
 	
+	@Override
+	public String toString() {
+		String info = String.format("%s님(%s)\n", this.name, this.id);
+		info += this.cart;
+		
+		return info;
+	}
+	
 }
