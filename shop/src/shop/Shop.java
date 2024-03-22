@@ -44,7 +44,8 @@ public class Shop {
 	}
 	
 	private void loadFile() {
-		
+		this.userManager = new UserManager();
+		this.itemManager = new ItemManager();
 		
 	}
 	
@@ -217,13 +218,14 @@ public class Shop {
 	}
 	
 	public void showUser() {
-		System.out.println(this.userManager);
+		if(userManager.getSize() > 0)
+			System.out.println(this.userManager);
 	}
 	
 	public void run() {
 		setSystem();
 		while(true) {
-			System.out.printf("Manager Cod : %d\n", this.managerCode);
+			System.out.printf("Manager Code : %d\n", this.managerCode);
 			showUser();
 			showMenu();
 			int option = inputNumber("menu");
