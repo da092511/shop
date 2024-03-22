@@ -27,8 +27,8 @@ public class Shop {
 
 	private int managerCode = 9876;
 	
-	private UserManager userManager = new UserManager();
-	private ItemManager itemManager = new ItemManager();
+	private UserManager userManager;
+	private ItemManager itemManager;
 	
 	private int log = -1;
 	

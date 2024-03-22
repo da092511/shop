@@ -3,8 +3,11 @@ package shop;
 public class Main {
 
 	public static void main(String[] args) {
-		Shop shop = new Shop("Mega");
+		Shop shop = Shop.getShop();
 		shop.run();
+		
+		// * 커밋은 완성된 기능ㄹ 단위로 할 것!
+		// ㄴ 디버깅 필
 		
 		//Shop Project
 		//class : Item,ItemManager, User, UserManager, Shop, Cart, FileManager
