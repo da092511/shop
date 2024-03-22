@@ -31,6 +31,7 @@ public class Shop {
 	private ItemManager itemManager;
 	
 	private int log = -1;
+	private String userName;
 	
 	private Shop(String name) {
 		this.name = name;
@@ -49,6 +50,8 @@ public class Shop {
 	
 	private void setSystem() {
 		loadFile();
+		
+		this.userName = "";
 	}
 	
 	
@@ -64,7 +67,7 @@ public class Shop {
 		System.out.println("4) 마이페이지");
 	}
 	
-	private void createUser() {
+	private void join() {
 		String name = inputString("name");
 		String id = inputString("id");
 		
@@ -83,24 +86,64 @@ public class Shop {
 		System.out.println("회원가입 완료");
 	}
 	
+	private void leave() {
+		String id = inputString("id");
+		String pw = inputString("pw");
+		
+		int index = userManager.searchUserById(id);
+		
+		if(index == -1) {
+			System.err.println("존재하지 않는 회원입니다.");
+			return;
+		}else if(!pw.equals(userManager.getPw(index))) {
+			System.err.println("비밀번호가 틀렸습니다.");
+			return;
+		}
+		
+		userManager.remove(index);
+		log = -1;
+		
+		System.out.println("탈퇴완료");
+	}
+	
+	private void login() {
+		String id = inputString("id");
+		String pw = inputString("pw");
+		
+		int index = userManager.searchUserById(id);
+		
+		if(index == -1) {
+			System.err.println("존재하지 않는 회원입니다.");
+			return;
+		}else if(!pw.equals(userManager.getPw(index))) {
+			System.err.println("비밀번호가 틀렸습니다.");
+			return;
+		}
+		
+		this.log = index;
+		this.userName = userManager.getId(index);
+		
+		System.out.println("로그인 성공");
+	}
+	
 	private void runUserMenu(int option) {
 		if(option == USER_JOIN && log == -1) {
-			createUser();
+			join();
 		}
 		else if(option == USER_LEAVE && log != -1) {
-			createUser();
+			leave();
 		}
 		else if(option == USER_LOGIN && log == -1) {
-			createUser();
+			login();
 		}
 		else if(option == USER_LOGOUT && log != -1) {
-			createUser();
+			
 		}
 		else if(option == USER_SHOP) {
-			createUser();
+			
 		}
 		else if(option == USER_MYPAGE) {
-			createUser();
+			
 		}
 		
 	}
@@ -165,7 +208,7 @@ public class Shop {
 				runUserMenu(inputNumber(""));
 				break;
 			case(MANAGER):
-				if(inputNumber("Manager Code") != managerCode)
+				if(log != -1 || inputNumber("Manager Code") != managerCode)
 					return;
 				showManagerMenu();
 				runManagerMenu(inputNumber(""));
@@ -173,14 +216,25 @@ public class Shop {
 		}
 	}
 	
+	public void showUser() {
+		System.out.println(this.userManager);
+	}
+	
 	public void run() {
 		setSystem();
 		while(true) {
 			System.out.printf("Manager Cod : %d\n", this.managerCode);
+			showUser();
 			showMenu();
 			int option = inputNumber("menu");
 			runMenu(option);
+			setUserName();
 		}
+	}
+	private void setUserName() {
+		if(log == -1) 
+			this.userName = "";
+		
 	}
 	
 	private int inputNumber(String message) {
