@@ -48,6 +48,9 @@ public class FileManager {
 				System.err.println("load failed");
 			}
 		}
+		else
+			return null;
+		
 		return info;
 	}
 	
