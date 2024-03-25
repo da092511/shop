@@ -30,11 +30,13 @@ public class Shop {
 	private final int DELECT_MY_ITEM = 2;
 	private final int UPDATE_AMOUNT = 3;
 	private final int PURCHASE = 4;
+
+	private final int QUIT = 3;
 	
 	private String name;
 	private int totalSales;
 
-	private int managerCode = 9876;
+	private int managerCode = 1234;
 	
 	private UserManager userManager;
 	private ItemManager itemManager;
@@ -42,7 +44,9 @@ public class Shop {
 	
 	private int log = -1;
 	private String userName;
-	
+
+	private boolean isRun;
+
 	private Shop(String name) {
 		this.name = name;
 	}
@@ -68,7 +72,7 @@ public class Shop {
 		
 		String info = fileManager.loadData();
 		
-		if(info == null || info.equals(""))
+		if(info == null)
 			return;
 		
 		String[] data = info.split("\n");
@@ -122,12 +126,14 @@ public class Shop {
 		loadFile();
 		
 		this.userName = "";
+		this.isRun = true;
 	}
 	
 	
 	private void showMenu() {
 		System.out.println("1) 유저");
 		System.out.println("2) 관리자");
+		System.out.println("3) 종료");
 	}
 	
 	private void showUserMenu() {
@@ -506,7 +512,7 @@ public class Shop {
 	private void updateItem() {
 		System.out.println(itemManager);
 		
-		int index = inputNumber("삭제할 아이템 번호")-1;
+		int index = inputNumber("수정할 번호")-1;
 		
 		if(index < 0 || index >= itemManager.getItemSize()) {
 			System.err.println("해당 상품은 존재하지 않습니다.");
@@ -571,6 +577,8 @@ public class Shop {
 				runManagerMenu(inputNumber(""));
 				
 				break;
+			case(QUIT):
+				this.isRun = false;
 		}
 		
 		System.out.println();
@@ -583,7 +591,7 @@ public class Shop {
 	
 	public void run() {
 		setSystem();
-		while(true) {
+		while(this.isRun) {
 			System.out.printf("Manager Code : %d\n", this.managerCode);
 			showUser();
 			showMenu();
