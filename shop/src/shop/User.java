@@ -54,13 +54,11 @@ public class User {
 	}
 	
 	public String save() {
-		String info = this.name +"/"+ this.id+"/"+this.pw+"/";
+		String info = this.name +"/"+ this.id + "/" + this.pw;
 		
 		if(cart.getCartSize() > 0) {
-			info += cart.save();
+			info += " /" +cart.save();
 		}
-		
-		info = info.substring(0,info.length()-1);
 		
 		return info;
 	}
