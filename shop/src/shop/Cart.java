@@ -1,9 +1,11 @@
 package shop;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Cart {
 	private ArrayList<Item> cart;
+	private DecimalFormat dcf = new DecimalFormat("#,###");
 	
 	public Cart() {
 		cart = new ArrayList<>();
@@ -66,7 +68,12 @@ public class Cart {
 		String info ="";
 		int number = 1;
 		for(Item item : cart) {
-			info += number+ ". " + item +"\n";
+			int itemPrice = item.getPrice();
+			int itemAmount = item.getAmount();
+			
+			int totalPrice = itemPrice * itemAmount;
+			
+			info += number+ ". " + item + " 총 "+ dcf.format(totalPrice) +"\n";
 			number++;
 		}
 		
