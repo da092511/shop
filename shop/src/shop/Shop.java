@@ -1,6 +1,7 @@
 package shop;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -67,20 +68,53 @@ public class Shop {
 		
 		String info = fileManager.loadData();
 		
-		if(info.equals(""))
+		if(info == null || info.equals(""))
 			return;
 		
 		String[] data = info.split("\n");
-		
+		System.out.println(Arrays.toString(data));
 		this.managerCode = Integer.parseInt(data[0]);
 		
 		String[] itemData = data[1].split("/");
+		
 		if(!itemData[0].equals("0")) {
-			
+			for(int i=1;i<itemData.length;i+=4) {
+				int itemCode = Integer.parseInt(itemData[i]);
+				String itemName = itemData[i+1];
+				int itemPrice = Integer.parseInt(itemData[i+2]);
+				int itemAmount = Integer.parseInt(itemData[i+3]);
+				
+				Item item = new Item(itemName,itemCode,itemPrice,itemAmount);
+				itemManager.addItem(item);
+			}
 		}
 		
 		if(data.length == 2)
 			return;
+		
+		for(int i=2;i<data.length;i++) {
+			String[] userData = data[i].split("/");
+			
+			String name = userData[0];
+			String id = userData[1];
+			String pw = userData[2];
+			
+			User user = new User(name,id,pw);
+			userManager.add(user);
+			
+			for(int j=3;j<userData.length;j+=4) {
+				int itemCode = Integer.parseInt(userData[j]);
+				String itemName = userData[j+1];
+				int itemPrice = Integer.parseInt(userData[j+2]);
+				int itemAmount = Integer.parseInt(userData[j+3]);
+				
+				Item item = new Item(itemName,itemCode,itemPrice,itemAmount);
+				
+				userManager.addItem(i-2, item);
+			}
+		}
+		
+		System.out.println("불러오기 성공");
 		
 	}
 	
@@ -523,7 +557,8 @@ public class Shop {
 	private void runMenu(int option) {
 		switch(option) {
 			case(USER):
-				System.out.printf("%s(%s)님 로그인 중\n",this.userName, userManager.getId(this.log));
+				if(log != -1)
+					System.out.printf("%s(%s)님 로그인 중\n",this.userName, userManager.getId(this.log));
 				showUserMenu();
 				runUserMenu(inputNumber(""));
 				
@@ -578,7 +613,7 @@ public class Shop {
 		data += itemManager.getItemSize()+ "/";
 		
 		if(itemSize == 0)
-			data = data.substring(0,data.length()-1) + "\n";
+			data += "\n";
 		else
 			data += itemManager.save() + "\n";
 		
