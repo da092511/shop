@@ -94,7 +94,7 @@ public class ItemManager {
 	public String save() {
 		String info = "";
 		for(Item item : list)
-			info+= item.save() + "/" ;
+			info+= item.save() + "/";
 		
 		info = info.substring(0,info.length()-1);
 		
@@ -107,7 +107,7 @@ public class ItemManager {
 		int number = 1;
 		
 		for(Item item: list) {
-			info += number++ + ". " + item + String.format("%s", item.getAmount() == 0 ? "" :"[품절]")+"\n";
+			info += number++ + ". " + item + String.format("%s", item.getAmount() == 0 ?"[품절]"+"\n": "" );
 		}
 		
 		return info;
