@@ -73,7 +73,7 @@ public class Cart {
 			
 			int totalPrice = itemPrice * itemAmount;
 			
-			info += number+ ". " + item + " 총 "+ dcf.format(totalPrice) +"\n";
+			info += number+ ". " + item + " 총 "+ dcf.format(totalPrice)+"원"+"\n";
 			number++;
 		}
 		
