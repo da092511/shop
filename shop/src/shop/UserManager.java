@@ -110,11 +110,15 @@ public class UserManager {
 		String info = "";
 		
 		for(User user : list) {
-			info += user.save() + "\n";
+			info += user.save();
+			info +="\n";
 		}
 		
+		if(info.equals(""))
+			return info;
+					
 		//줄바꿈 빼기
-		info = info.substring(0,info.length()-2);
+		info = info.substring(0,info.length()-1);
 		
 		return info;
 	}
