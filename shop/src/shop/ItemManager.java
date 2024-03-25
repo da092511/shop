@@ -107,7 +107,7 @@ public class ItemManager {
 		int number = 1;
 		
 		for(Item item: list) {
-			info += number++ + ". " + item + String.format("%s", item.getAmount() == 0 ?"[품절]"+"\n": "" );
+			info += number++ + ". " + item + String.format("%s", item.getAmount() == 0 ?"[품절]"+"\n": "\n" );
 		}
 		
 		return info;
