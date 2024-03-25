@@ -34,11 +34,18 @@ public class FileManager {
 				fr = new FileReader(file);
 				br = new BufferedReader(fr);
 				
+				boolean isCheck = false;
+				
 				while(br.ready()) {
-					info += br.readLine() + "\n";
+					info += br.readLine();
+					info += "\n";
+					
+					isCheck = true;
 				}
 				
-				info = info.substring(0,info.length()-2);
+				if(isCheck)
+					info = info.substring(0,info.length()-1);
+				
 				br.close();
 				fr.close();
 				
@@ -53,10 +60,6 @@ public class FileManager {
 		
 		return info;
 	}
-	
-	
-	
-	
 	
 	
 }
