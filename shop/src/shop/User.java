@@ -57,7 +57,7 @@ public class User {
 		String info = this.name +"/"+ this.id + "/" + this.pw;
 		
 		if(cart.getCartSize() > 0) {
-			info += " /" +cart.save();
+			info += "/" +cart.save();
 		}
 		
 		return info;
